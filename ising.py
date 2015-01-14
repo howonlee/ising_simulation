@@ -1,8 +1,10 @@
 import numpy as np
+import numpy.random as npr
 
 class Ising_lattice:
 
     def __init__(self,N,J=1.0,H=0.0):
+        npr.seed(1337) #reproducibility
         self._N=N
         self._J=J
         self._H=H
@@ -51,6 +53,9 @@ class Ising_lattice:
         print self
         print np.where(self._spins>0, '@',' ')
 
+    def picture(self):
+        pass
+
     # Manipulation methods
 
     def spin_flip(self,i,j):
@@ -73,6 +78,11 @@ class Ising_lattice:
         self.spin_flip(i,j)
         return 0
 
+    def mcmc(self,nflips,T):
+        for flip in xrange(nflips):
+            i,j = npr.randint(self._N, size=2)
+            self.cond_spin_flip(i,j,T)
+
   # private methods
 
     def _compute_E_M(self):
@@ -88,3 +98,4 @@ if __name__ == "__main__":
     a = Ising_lattice(500)
     a.random_spins()
     a.diagram()
+    a.mcmc(1000,
