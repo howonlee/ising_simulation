@@ -94,6 +94,8 @@ class Ising_lattice:
         if T is None:
             T = self.critical_temp()
         for flip in xrange(nflips):
+            if flip % 100000 == 0:
+                print "flip: ", flip
             i,j = npr.randint(self._N, size=2)
             self.cond_spin_flip(i,j,T)
 
@@ -112,6 +114,6 @@ if __name__ == "__main__":
     a = Ising_lattice(500)
     a.random_spins()
     a.picture()
-    a.mcmc(10000000)
+    a.mcmc(100000000)
     a.picture()
     a.savemat()
