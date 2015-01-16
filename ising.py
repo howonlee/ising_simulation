@@ -114,6 +114,6 @@ if __name__ == "__main__":
     a = Ising_lattice(60)
     a.random_spins()
     a.picture()
-    a.mcmc(100000)
+    a.mcmc(1)
     a.picture()
     a.savemat()
