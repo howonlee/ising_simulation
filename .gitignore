@@ -1,2 +1,5 @@
 *.txt
 *.npy
+*.pyc
+snap.py
+_snap.so
