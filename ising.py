@@ -1,5 +1,7 @@
 import numpy as np
 import numpy.random as npr
+import math
+import matplotlib.pyplot as plt
 
 class Ising_lattice:
 
@@ -21,6 +23,9 @@ class Ising_lattice:
     def random_spins(self):
         self._spins=np.where(np.random.random((self._N,self._N))>0.5,1,-1)
         self._compute_E_M()
+
+    def critical_temp(self):
+        return (2 / (math.log(1 + math.sqrt(2))))
 
     # Query methods
 
@@ -54,7 +59,12 @@ class Ising_lattice:
         print np.where(self._spins>0, '@',' ')
 
     def picture(self):
-        pass
+        plt.imshow(self._spins)
+        plt.show()
+
+    def savemat(self):
+        np.save("fractal", self._spins)
+        print "saved"
 
     # Manipulation methods
 
@@ -72,13 +82,17 @@ class Ising_lattice:
         self._M+=dM
         return dE
 
-    def cond_spin_flip(self,i,j,T):
+    def cond_spin_flip(self,i,j,T=None):
+        if T is None:
+            T = self.critical_temp()
         dE=self.spin_flip(i,j)
         if (dE<0.0 or (T>0.0 and (np.random.random()<np.exp(-dE/T)))): return dE
         self.spin_flip(i,j)
         return 0
 
-    def mcmc(self,nflips,T):
+    def mcmc(self,nflips,T=None):
+        if T is None:
+            T = self.critical_temp()
         for flip in xrange(nflips):
             i,j = npr.randint(self._N, size=2)
             self.cond_spin_flip(i,j,T)
@@ -97,5 +111,7 @@ class Ising_lattice:
 if __name__ == "__main__":
     a = Ising_lattice(500)
     a.random_spins()
-    a.diagram()
-    a.mcmc(1000,
+    a.picture()
+    a.mcmc(10000000)
+    a.picture()
+    a.savemat()
