@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import snap
 
-net = snap.LoadEdgeList(snap.PUNGraph, "fractal_edgelist.txt", 0, 1, "\t")
+net = snap.LoadEdgeList(snap.PUNGraph, "fractal_edgelist.txt", 0, 1, " ")
 print net.GetNodes()
 DegToCCfV = snap.TFltPrV()
 Cf = snap.GetClustCf(net, DegToCCfV, -1)

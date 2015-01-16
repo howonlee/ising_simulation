@@ -8,7 +8,7 @@ from scipy.stats import ks_2samp
 import numpy as np
 import snap
 
-net = snap.LoadEdgeList(snap.PUNGraph, "fractal_edgelist.txt", 0, 1, "\t")
+net = snap.LoadEdgeList(snap.PUNGraph, "fractal_edgelist.txt", 0, 1, " ")
 TriadCntV = snap.TIntPrV()
 Cf = snap.GetTriadParticip(net, TriadCntV)
 pairs = []
