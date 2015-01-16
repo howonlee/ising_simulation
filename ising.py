@@ -111,9 +111,9 @@ class Ising_lattice:
         self._E-=self._M*self._H
 
 if __name__ == "__main__":
-    a = Ising_lattice(1000)
+    a = Ising_lattice(60)
     a.random_spins()
     a.picture()
-    a.mcmc(10000000)
+    a.mcmc(100000)
     a.picture()
     a.savemat()
