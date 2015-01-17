@@ -9,7 +9,7 @@ import numpy as np
 with open("fractal_edgelist.txt", "r") as net_file:
     net = nx.read_edgelist(net_file)
     degree_sequence=sorted(nx.degree(net).values(),reverse=True)
-    plt.loglog(degree_sequence, 'b-')
+    plt.plot(degree_sequence, 'b-')
     plt.title("Degree Counts")
     plt.xlabel("Degree")
     plt.ylabel("Count")
